@@ -1,0 +1,6 @@
+@JN_ProyectoApi_HostAddress = http://localhost:5164
+
+GET {{JN_ProyectoApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

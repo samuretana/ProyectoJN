@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Proyecto JN</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
+    <link href="~/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/css/simplebar.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+
+<body class="navbar-fixed sidebar-fixed" id="body">
+
+    <div class="wrapper">
+
+        <aside class="left-sidebar sidebar-dark" id="left-sidebar">
+            <div id="sidebar" class="sidebar sidebar-with-footer">
+
+                <div class="app-brand">
+                    <a href="/index.html">
+                        <img src="~/img/logo.png" alt="Mono">
+                        <span class="brand-name">MONO</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-left" data-simplebar style="height: 100%;">
+
+                    <ul class="nav sidebar-inner" id="sidebar-menu">
+                        <li class="section-title">
+                            Apps
+                        </li>
+                        <li>
+                            <a class="sidenav-item-link" href="chat.html">
+                                <i class="mdi mdi-wechat"></i>
+                                <span class="nav-text">Chat</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="sidenav-item-link" href="contacts.html">
+                                <i class="mdi mdi-phone"></i>
+                                <span class="nav-text">Contacts</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+
+            <header class="main-header" id="header">
+                <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+
+                    <button id="sidebar-toggler" class="sidebar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                    </button>
+
+                    <span class="page-title"></span>
+
+                    <div class="navbar-right ">
+
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown user-menu">
+                                <button class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                    <img src="~/img/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
+                                    <span class="d-none d-lg-inline-block">John Doe</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <a class="dropdown-link-item" href="user-profile.html">
+                                            <i class="mdi mdi-account-outline"></i>
+                                            <span class="nav-text">Perfil</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-link-item" href="user-activities.html">
+                                            <i class="mdi mdi-diamond-stone"></i>
+                                            <span class="nav-text">Seguridad</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-link-item" href="user-account-settings.html">
+                                            <i class="mdi mdi-settings"></i>
+                                            <span class="nav-text">Salir</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+
+
+            </header>
+
+            @RenderBody()
+
+            <div class="content-wrapper">
+                <div class="content">
+                    <div class="card card-default">
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer mt-auto">
+                <div class="copyright bg-white">
+                    <p>
+                        &copy; @DateTime.Now.Year Copyright Mono Dashboard Bootstrap Template by <a class="text-primary" href="http://www.iamabdus.com/" target="_blank">Abdus</a>.
+                    </p>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+    <script src="~/js/mono.js"></script>
+
+</body>
+</html>

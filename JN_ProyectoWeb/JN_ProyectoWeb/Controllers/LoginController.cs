@@ -13,5 +13,15 @@ namespace JN_ProyectoWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult RegistrarCuenta()
+        {
+            return View();
+        }
+
+        public IActionResult RecuperarContrasenna()
+        {
+            return View();
+        }
     }
 }

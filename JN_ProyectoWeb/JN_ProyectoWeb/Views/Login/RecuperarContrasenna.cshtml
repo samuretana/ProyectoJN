@@ -1,4 +1,6 @@
-﻿@{
+﻿@model UsuarioModel
+
+@{
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
 
@@ -19,7 +21,7 @@
                         <form action="/index.html">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="password" class="form-control input-lg" id="password" placeholder="Correo">
+                                    <input type="password" class="form-control input-lg" asp-for="Correo" placeholder="Correo">
                                 </div>
 
                                 <div class="col-md-12">

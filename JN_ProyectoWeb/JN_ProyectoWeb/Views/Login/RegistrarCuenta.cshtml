@@ -1,4 +1,6 @@
-﻿@{
+﻿@model UsuarioModel
+
+@{
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
 
@@ -19,16 +21,16 @@
                         <form action="/index.html">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="text" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Identificación">
+                                    <input type="text" class="form-control input-lg" asp-for="Identificacion" placeholder="Identificación">
                                 </div>
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="text" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Nombre">
+                                    <input type="text" class="form-control input-lg" asp-for="Nombre" placeholder="Nombre">
                                 </div>
                                 <div class="form-group col-md-12 ">
-                                    <input type="text" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Correo">
+                                    <input type="text" class="form-control input-lg" asp-for="Correo" placeholder="Correo">
                                 </div>
                                 <div class="form-group col-md-12 ">
-                                    <input type="password" class="form-control input-lg" id="password" placeholder="Contraseña">
+                                    <input type="password" class="form-control input-lg" asp-for="Contrasenna" placeholder="Contraseña">
                                 </div>
                                 <div class="col-md-12">
 

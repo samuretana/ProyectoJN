@@ -12,35 +12,38 @@
                         <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
                             <a class="w-auto pl-0" href="/index.html">
                                 <img src="~/img/logo.png" alt="Mono">
-                                <span class="brand-name text-dark">Proyecto JN</span>
                             </a>
                         </div>
                     </div>
                     <div class="card-body px-5 pb-5 pt-0">
 
-                        <h4 class="text-dark mb-6 text-center">Iniciar Sesión</h4>
+                        <h4 class="text-dark mb-6 text-center">Iniciar Sesion</h4>
 
                         <form action="/index.html">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
-                                    <input type="text" class="form-control input-lg" id="Identificacion" placeholder="Identificación">
+                                    <input type="text" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="Identificación">
                                 </div>
                                 <div class="form-group col-md-12 ">
-                                    <input type="password" class="form-control input-lg" id="Contrasena" placeholder="Contraseña">
+                                    <input type="password" class="form-control input-lg" id="password" placeholder="Contraseña">
                                 </div>
                                 <div class="col-md-12">
 
-                                    <a href="@Url.Action("Principal","Login")" class="btn btn-primary btn-pill mb-4">Procesar</a>
-
                                     <div class="d-flex justify-content-between mb-3">
 
-                                        <a class="text-blue" href="@Url.Action("RecuperarContrasenna", "Login")">Recuperar la Contraseña</a>
+                                        <div class="custom-control custom-checkbox mr-3 mb-3">
+                                            
+                                        </div>
 
-                                    </div>                                  
+                                        <a class="text-color" href="@Url.Action("RecuperarContrasenna", "Login")"> Recuperar Contraseña </a>
+
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-pill mb-4">Procesar</button>
 
                                     <p>
-                                        ¿No tienes una cuenta?
-                                        <a class="text-blue" href="@Url.Action("RegistrarCuenta", "Login")">Crear una cuenta</a>
+                                        ¿Aún no tienes una cuenta?
+                                        <a class="text-blue" href="@Url.Action("RegistrarCuenta", "Login")">Regístrate</a>
                                     </p>
                                 </div>
                             </div>

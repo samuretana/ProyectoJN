@@ -30,5 +30,20 @@ namespace JN_ProyectoApi.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("IniciarSesion")]
+        public IActionResult IniciarSesion(UsuarioModel model)
+        {
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value))
+            {
+
+                var result = context.QueryFirstOrDefault<UsuarioModel>("IniciarSesion",
+                    new { model.Identificacion, model.Contrasenna });
+
+            }
+
+            return Ok();
+        }
     }
 }

@@ -31,19 +31,38 @@ namespace JN_ProyectoWeb.Controllers
 
                 if (response.IsSuccessStatusCode)
                     return RedirectToAction("IniciarSesion", "Login");
-                }    
+            }    
 
                 return View();
         }
 
         #endregion
 
+        #region IniciarSesion
+
         [HttpGet]
         public IActionResult IniciarSesion()
         {
             return View();
         }
-        
+
+        [HttpPost]
+        public IActionResult IniciarSesion(UsuarioModel model)
+        {
+            using (var http = _httpClient.CreateClient())
+            {
+                string url = _configuratrion.GetSection("Variables:urlWebApi").Value + "Login/IniciarSesion";
+                var response = http.PostAsJsonAsync(url, model).Result;
+
+                if (response.IsSuccessStatusCode)
+                    return RedirectToAction("Principal", "Login");
+            }
+
+            return View();
+        }
+
+        #endregion
+
         [HttpGet]
         public IActionResult Principal()
         {

@@ -26,9 +26,19 @@ namespace JN_ProyectoApi.Controllers
                 var result = context.Execute("RegistrarCuenta",
                     new { model.Identificacion, model.Nombre, model.Correo, model.Contrasenna });
 
-            }
+                var respuesta = new RespuestaModel();
 
-            return Ok();
+                if(result > 0)                
+                    respuesta.Indicador = true;                
+                else
+                {
+                    respuesta.Indicador= false;
+                    respuesta.Mensaje = "Su información no se ha registrado corectamente";
+                }
+
+                return Ok(respuesta);
+
+            }
         }
 
         [HttpPost]
@@ -41,9 +51,23 @@ namespace JN_ProyectoApi.Controllers
                 var result = context.QueryFirstOrDefault<UsuarioModel>("IniciarSesion",
                     new { model.Identificacion, model.Contrasenna });
 
+                var respuesta = new RespuestaModel();
+
+                if (result != null)
+                { 
+                    respuesta.Indicador = true;
+                    respuesta.Datos = result;
+                }
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "Su información no se ha validado corectamente";
+                }
+
+                return Ok(respuesta);
+
             }
 
-            return Ok();
         }
     }
 }

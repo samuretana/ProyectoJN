@@ -4,9 +4,9 @@ namespace JN_ProyectoWeb.Controllers
 {
     public class ErrorController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CapturarError()
         {
-            return View();
+            return View("Error");
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using JN_ProyectoWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace JN_ProyectoWeb.Controllers
 {
@@ -24,6 +28,8 @@ namespace JN_ProyectoWeb.Controllers
         [HttpPost]
         public IActionResult RegistrarCuenta(UsuarioModel model)
         {
+            model.Contrasenna = Encrypt(model.Contrasenna!);
+            
             using (var http = _httpClient.CreateClient())
             {
                 string url = _configuratrion.GetSection("Variables:urlWebApi").Value + "Login/RegistrarCuenta";
@@ -49,6 +55,9 @@ namespace JN_ProyectoWeb.Controllers
         [HttpPost]
         public IActionResult IniciarSesion(UsuarioModel model)
         {
+            model.Contrasenna = Encrypt(model.Contrasenna!);
+
+
             using (var http = _httpClient.CreateClient())
             {
                 string url = _configuratrion.GetSection("Variables:urlWebApi").Value + "Login/IniciarSesion";
@@ -76,6 +85,35 @@ namespace JN_ProyectoWeb.Controllers
         public IActionResult RecuperarContrasenna()
         {
             return View();
+        }
+
+        private string Encrypt(string texto)
+        {
+            byte[] iv = new byte[16];
+            byte[] array;
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(_configuratrion.GetSection("Variables:llaveCifrado").Value!);
+                aes.IV = iv;
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                        {
+                            streamWriter.Write(texto);
+                        }
+
+                        array = memoryStream.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(array);
         }
     }
 }

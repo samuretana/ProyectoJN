@@ -3,6 +3,10 @@ using JN_ProyectoApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace JN_ProyectoApi.Controllers
 {
@@ -54,7 +58,9 @@ namespace JN_ProyectoApi.Controllers
                 var respuesta = new RespuestaModel();
 
                 if (result != null)
-                { 
+                {
+                    result.Token = GenerarToken(result.Id);
+                    
                     respuesta.Indicador = true;
                     respuesta.Datos = result;
                 }
@@ -68,6 +74,24 @@ namespace JN_ProyectoApi.Controllers
 
             }
 
+        }
+
+        private string GenerarToken(long Id)
+        {
+            string SecretKey = _configuration.GetSection("Variables:llaveToken").Value!;
+
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim("IdUsuario", Id.ToString()));
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(20),
+                signingCredentials: cred);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace JN_ProyectoApi.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-
+        [Route("CapturarError")]
         public IActionResult CapturarError()
         {
             var ex = HttpContext.Features.Get<IExceptionHandlerFeature>();
@@ -19,8 +19,8 @@ namespace JN_ProyectoApi.Controllers
             var respuesta = new RespuestaModel();
 
             
-                respuesta.Indicador = false;
-                respuesta.Mensaje = "Se presento un problema en el sistema";            
+            respuesta.Indicador = false;
+            respuesta.Mensaje = "Se presento un problema en el sistema.";            
 
             return Ok(respuesta);
         }

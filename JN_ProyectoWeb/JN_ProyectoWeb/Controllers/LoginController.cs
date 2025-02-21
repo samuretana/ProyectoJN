@@ -78,7 +78,6 @@ namespace JN_ProyectoWeb.Controllers
             return View();
         }
 
-      
 
         [HttpGet]
 

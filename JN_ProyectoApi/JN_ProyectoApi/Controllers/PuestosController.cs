@@ -9,6 +9,7 @@ using System.Reflection;
 
 namespace JN_ProyectoApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PuestosController : ControllerBase
@@ -19,14 +20,14 @@ namespace JN_ProyectoApi.Controllers
             _configuration = configuration;
         }
 
-        [Authorize]
+        
         [HttpGet]
         [Route("ConsultarPuestos")]
         public IActionResult ConsultarPuestos(long Id)
         {
             using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value))
             {
-                var result = context.Query<PuestosModel>("ConsultarPuestos",
+                var result = context.Query<PuestosModel>("ConsultarPuestos", //Este context.Query<PuestosModel> devuelve una lista
                     new { Id });
 
                 var respuesta = new RespuestaModel();

@@ -11,7 +11,7 @@ using System.Text;
 
 namespace JN_ProyectoApi.Controllers
 {
-    [AllowAnonymous]
+    [AllowAnonymous] // Todos los métodos de este controlador son anónimos
     [Route("api/[controller]")]
     [ApiController]
     public class LoginController : ControllerBase

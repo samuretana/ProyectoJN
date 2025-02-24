@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace JN_ProyectoWeb.Controllers
 {
@@ -29,7 +30,7 @@ namespace JN_ProyectoWeb.Controllers
         public IActionResult RegistrarCuenta(UsuarioModel model)
         {
             model.Contrasenna = Encrypt(model.Contrasenna!);
-            
+
             using (var http = _httpClient.CreateClient())
             {
                 string url = _configuratrion.GetSection("Variables:urlWebApi").Value + "Login/RegistrarCuenta";
@@ -37,9 +38,9 @@ namespace JN_ProyectoWeb.Controllers
 
                 if (response.IsSuccessStatusCode)
                     return RedirectToAction("IniciarSesion", "Login");
-            }    
+            }
 
-                return View();
+            return View();
         }
 
         #endregion
@@ -64,7 +65,17 @@ namespace JN_ProyectoWeb.Controllers
                 var response = http.PostAsJsonAsync(url, model).Result;
 
                 if (response.IsSuccessStatusCode)
+                {
+                    var result = response.Content.ReadFromJsonAsync<RespuestaModel>().Result;
+
+                    var datosResult = JsonSerializer.Deserialize<UsuarioModel>((JsonElement)result!.Datos!);
+
+                    HttpContext.Session.SetString("Token",datosResult!.Token!);
+                    HttpContext.Session.SetString("Nombre",datosResult!.NombreUsuario!);
+                    HttpContext.Session.SetString("NombrePerfil",datosResult!.NombrePerfil!);
+                    HttpContext.Session.SetString("IdPerfil", datosResult!.IdPerfil.ToString());
                     return RedirectToAction("Principal", "Login");
+                }
             }
 
             return View();

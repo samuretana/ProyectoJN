@@ -13,6 +13,7 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Pr
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Hace que aparezca el authorize y genera el token en el API
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
@@ -23,10 +24,11 @@ builder.Services.AddSwaggerGen(options =>
         Type = SecuritySchemeType.ApiKey
     });
     options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
+}); //Hace que aparezca el authorize y genera el token en el API
 
 string SecretKey = builder.Configuration.GetSection("Variables:llaveToken").Value!;
 
+//Si el token no lo puede leer, no puedan entrar al API
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -45,7 +47,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             return false;
         }
     };
-});
+}); //Si el token no lo puede leer, no puedan entrar al API
 
 var app = builder.Build();
 

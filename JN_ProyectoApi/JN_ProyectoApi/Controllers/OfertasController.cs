@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace JN_ProyectoApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OfertasController : ControllerBase
@@ -17,7 +18,7 @@ namespace JN_ProyectoApi.Controllers
             _configuration = configuration;
         }
 
-        [Authorize]
+        
         [HttpGet]
         [Route("ConsultarOfertas")]
         public IActionResult ConsultarOfertas(long Id)

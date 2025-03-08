@@ -26,9 +26,9 @@ namespace JN_ProyectoApi.Controllers
         [Route("RegistrarCuenta")]
         public IActionResult RegistrarCuenta(UsuarioModel model)
         {
-            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value))
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
             {
-                var result = context.Execute("RegistrarCuenta",
+                var result = context.Execute("RegistrarCuenta", //Procedimiento Almacenado
                     new { model.Identificacion, model.NombreUsuario, model.Correo, model.Contrasenna });
 
                 var respuesta = new RespuestaModel();

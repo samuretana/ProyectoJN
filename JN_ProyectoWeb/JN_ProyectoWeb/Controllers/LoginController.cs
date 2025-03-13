@@ -26,6 +26,7 @@ namespace JN_ProyectoWeb.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult RegistrarCuenta(UsuarioModel model)
         {
@@ -68,13 +69,16 @@ namespace JN_ProyectoWeb.Controllers
                 {
                     var result = response.Content.ReadFromJsonAsync<RespuestaModel>().Result;
 
-                    var datosResult = JsonSerializer.Deserialize<UsuarioModel>((JsonElement)result!.Datos!);
+                    if(result != null && result.Indicador)
+                    {
+                        var datosResult = JsonSerializer.Deserialize<UsuarioModel>((JsonElement)result!.Datos!);
 
-                    HttpContext.Session.SetString("Token",datosResult!.Token!);
-                    HttpContext.Session.SetString("Nombre",datosResult!.NombreUsuario!);
-                    HttpContext.Session.SetString("NombrePerfil",datosResult!.NombrePerfil!);
-                    HttpContext.Session.SetString("IdPerfil", datosResult!.IdPerfil.ToString());
-                    return RedirectToAction("Principal", "Login");
+                        HttpContext.Session.SetString("Token",datosResult!.Token!);
+                        HttpContext.Session.SetString("Nombre",datosResult!.NombreUsuario!);
+                        HttpContext.Session.SetString("NombrePerfil",datosResult!.NombrePerfil!);
+                        HttpContext.Session.SetString("IdPerfil", datosResult!.IdPerfil.ToString());
+                        return RedirectToAction("Principal", "Login");
+                    }
                 }
             }
 
@@ -125,5 +129,31 @@ namespace JN_ProyectoWeb.Controllers
 
             return Convert.ToBase64String(array);
         }
+
+        private string Decrypt(string texto)
+        {
+            byte[] iv = new byte[16];
+            byte[] buffer = Convert.FromBase64String(texto);
+
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(_configuratrion.GetSection("Variables:llaveCifrado").Value!);
+                aes.IV = iv;
+
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+                using (MemoryStream memoryStream = new MemoryStream(buffer))
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader streamReader = new StreamReader(cryptoStream))
+                        {
+                            return streamReader.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

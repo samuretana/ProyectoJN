@@ -46,5 +46,28 @@ namespace JN_ProyectoApi.Controllers
                 return Ok(respuesta);
             }
         }
+
+        [HttpPost]
+        [Route("RegistrarPuesto")]
+        public IActionResult RegistrarPuesto(PuestosModel model)
+        {
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
+            {
+                var result = context.Execute("RegistrarPuesto", //Procedimiento Almacenado
+                    new { model.Nombre, model.Descripcion });
+
+                var respuesta = new RespuestaModel();
+
+                if (result > 0)
+                    respuesta.Indicador = true;
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "El puesto no se ha registrado correctamente";
+                }
+
+                return Ok(respuesta);
+            }
+        }
     }
 }

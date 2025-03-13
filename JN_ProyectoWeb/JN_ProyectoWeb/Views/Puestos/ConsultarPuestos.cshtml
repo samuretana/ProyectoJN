@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model List<PuestosModel>
+
+<div class="card card-default">
+    <div class="card-header">
+        <h2>Puestos</h2>
+    </div>
+
+    <div class="card-body">
+
+        <div style="margin:10px; text-align:right">
+            <a class="btn btn-outline-primary" href="@Url.Action("RegistrarPuestos","Puestos")"><i class="fa fa-plus"></i>Agregar</a>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

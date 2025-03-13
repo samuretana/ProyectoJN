@@ -73,6 +73,8 @@ namespace JN_ProyectoApi.Controllers
             }
         }
 
+        //Recuperar la contraseña
+
         private string GenerarToken(long Id, long IdPerfi)
         {
             string SecretKey = _configuration.GetSection("Variables:llaveToken").Value!;

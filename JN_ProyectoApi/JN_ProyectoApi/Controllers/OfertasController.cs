@@ -67,5 +67,28 @@ namespace JN_ProyectoApi.Controllers
                 return Ok(respuesta);
             }
         }
+
+        [HttpPut]
+        [Route("ActualizarOferta")]
+        public IActionResult ActualizarOferta(OfertasModel model)
+        {
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
+            {
+                var result = context.Execute("ActualizarOferta", //Procedimiento Almacenado
+                    new { model.Id, model.IdPuesto, model.Salario, model.Horario, model.Cantidad, model.Estado });
+
+                var respuesta = new RespuestaModel();
+
+                if (result > 0)
+                    respuesta.Indicador = true;
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "La oferta no se ha actualizado correctamente";
+                }
+
+                return Ok(respuesta);
+            }
+        }
     }
 }

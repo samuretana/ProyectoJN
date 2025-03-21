@@ -11,7 +11,7 @@
             <a class="btn btn-outline-primary" href="@Url.Action("RegistrarOfertas","Ofertas")"><i class="fa fa-plus"></i>Agregar</a>
         </div>
 
-        <table class="table table-bordered">
+        <table id="example" class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -20,6 +20,8 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Horario</th>
                     <th scope="col">Salario</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +35,8 @@
                         <td>@item.Cantidad</td>
                         <td>@item.Horario</td>
                         <td>@item.Salario</td>
+                        <td>@item.EstadoDescripcion</td>
+                        <td><a href="@Url.Action("ActualizarOfertas", "Ofertas", new{ Id = item.Id})"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 }
 
@@ -40,3 +44,19 @@
         </table>
     </div>
 </div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = new DataTable('#example', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+            },
+            columnDefs: [{
+              targets: '_all', className: 'dt-left'
+            }],
+        });
+    });
+    
+
+</script>

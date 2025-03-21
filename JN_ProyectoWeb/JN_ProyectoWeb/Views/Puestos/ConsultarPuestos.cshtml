@@ -2,7 +2,7 @@
 
 <div class="card card-default">
     <div class="card-header">
-        <h2>Puestos</h2>
+        <h1>Puestos</h1>
     </div>
 
     <div class="card-body">
@@ -11,12 +11,13 @@
             <a class="btn btn-outline-primary" href="@Url.Action("RegistrarPuestos","Puestos")"><i class="fa fa-plus"></i>Agregar</a>
         </div>
 
-        <table class="table table-bordered">
+        <table id="example" class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Descripción</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>@item.Id</td>
                         <td>@item.Nombre</td>
                         <td>@item.Descripcion</td>
+                        <td><a href="@Url.Action("ActualizarPuestos", "Puestos", new{ Id = item.Id})"><i class="fa fa-edit"></i></a></td>
                     </tr>
                 }
 
@@ -34,3 +36,18 @@
         </table>
     </div>
 </div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+         var table = new DataTable('#example', {
+             language: {
+                 url: '//cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+             },
+             columnDefs: [{
+               targets: '_all', className: 'dt-left'
+             }],
+         });
+     });
+
+</script>

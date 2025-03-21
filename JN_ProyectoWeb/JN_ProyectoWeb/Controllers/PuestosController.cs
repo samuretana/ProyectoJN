@@ -55,7 +55,7 @@ namespace JN_ProyectoWeb.Controllers
         public IActionResult ActualizarPuestos(long Id)
         {
             var datosResult = _general.ConsultarDatosPuestos(Id).FirstOrDefault();
-            return View();
+            return View(datosResult);
         }
 
         [HttpPost]

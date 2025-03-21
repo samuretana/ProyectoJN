@@ -70,7 +70,7 @@ namespace JN_ProyectoWeb.Controllers
         public IActionResult ActualizarOfertas(long Id)
         {
             CargarComboPuestos();
-            var datosResult = _general.ConsultarDatosPuestos(Id).FirstOrDefault();
+            var datosResult = _general.ConsultarDatosOfertas(Id).FirstOrDefault();
             return View(datosResult);
 
             

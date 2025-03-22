@@ -1,3 +1,4 @@
+using JN_ProyectoApi.Servicios;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -12,6 +13,7 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Pr
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IGeneral, General>();
 
 //Hace que aparezca el authorize y genera el token en el API
 builder.Services.AddSwaggerGen(options =>

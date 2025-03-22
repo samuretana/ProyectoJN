@@ -63,18 +63,22 @@
 
                     <span class="page-title"></span>
 
+                    @Context.Session.GetString("NombrePerfil")
+
                     <div class="navbar-right ">
+
+                        
 
                         <ul class="nav navbar-nav">
 
                             <li class="dropdown user-menu">
                                 <button class="dropdown-toggle nav-link" data-toggle="dropdown">
                                     <img src="~/img/user-xs-01.jpg" class="user-image rounded-circle" alt="User Image" />
-                                    <span class="d-none d-lg-inline-block">John Doe</span>
+                                    <span class="d-none d-lg-inline-block"> @Context.Session.GetString("Nombre") </span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
-                                        <a class="dropdown-link-item" href="user-profile.html">
+                                        <a class="dropdown-link-item" href="@Url.Action("ActualizarDatos", "Usuarios")">
                                             <i class="mdi mdi-account-outline"></i>
                                             <span class="nav-text">Perfil</span>
                                         </a>
@@ -86,7 +90,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-link-item" href="user-account-settings.html">
+                                        <a class="dropdown-link-item" href="@Url.Action("CerrarSesion","Login")">
                                             <i class="mdi mdi-settings"></i>
                                             <span class="nav-text">Salir</span>
                                         </a>

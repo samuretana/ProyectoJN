@@ -9,10 +9,15 @@
         <h2>Registrar Oferta</h2>
     </div>
 
-    <div class="card-body">
+    <div class="card-body">        
 
         <form asp-controller="Ofertas" asp-action="RegistrarOfertas">
             <div class="row">
+
+                <div class="alert alert-default text-center" role="alert">
+                    @ViewBag.Msj
+                </div>
+
                 <div class="col-2"></div>
                 <div class="col-8">
                     <div class="form-group col-md-12 mb-4">

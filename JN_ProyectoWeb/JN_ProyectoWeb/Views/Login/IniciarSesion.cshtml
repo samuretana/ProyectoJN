@@ -21,6 +21,13 @@
 
                         <h4 class="text-dark mb-6 text-center">Iniciar Sesion</h4>
 
+                        @if (@ViewBag.Msj != null)
+                        {
+                            <div class="alert alert-default text-center" role="alert">
+                              @ViewBag.Msj
+                            </div>
+                        }
+
                         <form asp-controller="Login" asp-action="IniciarSesion">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">

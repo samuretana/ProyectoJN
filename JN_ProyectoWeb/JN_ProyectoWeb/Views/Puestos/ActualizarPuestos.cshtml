@@ -9,10 +9,15 @@
         <h2>Actualizar Puesto</h2>
     </div>
 
-    <div class="card-body">
+    <div class="card-body">        
 
         <form asp-controller="Puestos" asp-action="ActualizarPuestos">
             <div class="row">
+
+                <div class="alert alert-default text-center" role="alert">
+                    @ViewBag.Msj
+                </div>
+
                 <div class="col-2"></div>
                 <div class="col-8">
 

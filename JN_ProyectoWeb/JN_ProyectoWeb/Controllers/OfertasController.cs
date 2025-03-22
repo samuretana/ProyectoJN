@@ -7,6 +7,8 @@ using System.Text.Json;
 
 namespace JN_ProyectoWeb.Controllers
 {
+    [FiltroSesion]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class OfertasController : Controller
     {
         private readonly IHttpClientFactory _httpClient;

@@ -19,11 +19,14 @@
                     <div class="card-body px-5 pb-5 pt-0">
                         <h4 class="text-dark text-center mb-5">Recuperar Contraseña</h4>
 
-                        <div class="alert alert-default text-center" role="alert">
-                            @ViewBag.Msj
-                        </div>
+                        @if (ViewBag.Msj != null)
+                        {
+                            <div class="alert alert-default text-center" role="alert">
+                                @ViewBag.Msj
+                            </div>
+                        }
 
-                        <form action="/index.html">
+                        <form asp-controller="Login" asp-action="RecuperarContrasenna">
                             <div class="row">
                                 <div class="form-group col-md-12 mb-4">
                                     <input type="password" class="form-control input-lg" asp-for="Correo" placeholder="Correo">

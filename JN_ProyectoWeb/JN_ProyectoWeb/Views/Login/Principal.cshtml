@@ -1,3 +1,78 @@
 ﻿@{
-    
+
 }
+
+
+
+<div id="calendar"></div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+        var eventsArray = [];
+
+        $.ajax({
+            type:"POST",
+            url:"/Ofertas/ObtenerOfertasUsuario",
+            data:{},
+            cache:false,
+            dataType:"json",
+            success: function(events){
+
+                events.forEach(function (element, index){
+
+                    let date = new Date(element.fecha);
+
+                    eventsArray.push({
+                      title: element.nombre,
+                      description: moment(date).format('HH:mm') + " Oferta #" + element.idOferta,
+                      start: date,
+                      end: date,
+                      allDay: false,
+                      backgroundColor: "gray",
+                      url: ""
+                });
+                });
+
+                InicializarCalendario(eventsArray);
+            },
+            error: function(result){
+                eventsArray = [];
+                InicializarCalendario(eventsArray);
+            }
+        });
+    });
+
+    function InicializarCalendario(eventos)
+    {
+        $("#calendar").fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: ''
+        },
+        buttonText: {
+            today: 'Hoy',
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día'
+        },
+        editable: false,
+        droppable: false,
+        events: eventos,
+        eventRender: function (eventObj, $el) {
+            $el.popover({
+                title: eventObj.description,
+                content: eventObj.title,
+                trigger: 'hover',
+                placement: 'top',
+                container: 'body'
+            });
+        },
+        timeFormat: 'HH:mm'
+      });
+
+    }
+
+</script>

@@ -77,7 +77,32 @@ namespace JN_ProyectoApi.Controllers
 
                 return Ok(respuesta);
             }
-        }        
+        }
+
+        [HttpPut]
+        [Route("ActualizarContrasenna")]
+        public IActionResult ActualizarContrasenna(UsuarioModel model)
+        {
+            var Id = _general.ObtenerUsuarioFromToken(User.Claims);
+
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
+            {
+                var result = context.Execute("ActualizarContrasenna", //Procedimiento Almacenado
+                    new { Id, model.Contrasenna, model.ContrasennaAnterior });
+
+                var respuesta = new RespuestaModel();
+
+                if (result > 0)
+                    respuesta.Indicador = true;
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "La información del usuario no se ha actualizado correctamente";
+                }
+
+                return Ok(respuesta);
+            }
+        }
 
     }
 }

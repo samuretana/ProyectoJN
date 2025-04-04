@@ -7,6 +7,7 @@
         public string? NombreUsuario { get; set; }
         public string? Correo { get; set; }
         public string? Contrasenna { get; set; }
+        public string? ContrasennaAnterior { get; set; }
         public long IdPerfil { get; set; }
         public string? NombrePerfil { get; set; }
         public string? Token { get; set; }

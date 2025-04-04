@@ -14,6 +14,7 @@
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap4.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/css/fullcalendar.min.css" rel="stylesheet" />
 </head>
 
 <body class="navbar-fixed sidebar-fixed" id="body">
@@ -24,7 +25,7 @@
             <div id="sidebar" class="sidebar sidebar-with-footer">
 
                 <div class="app-brand">
-                    <a href="/index.html">
+                    <a href="@Url.Action("Principal", "Login")">
                         <img src="~/img/logo.png" alt="Mono">
                         <span class="brand-name">MONO</span>
                     </a>
@@ -80,19 +81,19 @@
                                     <li>
                                         <a class="dropdown-link-item" href="@Url.Action("ActualizarDatos", "Usuarios")">
                                             <i class="mdi mdi-account-outline"></i>
-                                            <span class="nav-text">Perfil</span>
+                                            <span class="nav-text">Datos Personales</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-link-item" href="user-activities.html">
+                                        <a class="dropdown-link-item" href="@Url.Action("ActualizarContrasenna", "Usuarios")">
                                             <i class="mdi mdi-diamond-stone"></i>
-                                            <span class="nav-text">Seguridad</span>
+                                            <span class="nav-text">Datos Seguridad</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-link-item" href="@Url.Action("CerrarSesion","Login")">
                                             <i class="mdi mdi-settings"></i>
-                                            <span class="nav-text">Salir</span>
+                                            <span class="nav-text">Cerrrar Sesión</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -125,10 +126,8 @@
     <script src="~/js/mono.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap4.js"></script>
-
-
-
-
+    <script src="~/js/moment.js"></script>
+    <script src="~/js/fullcalendar.min.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,44 @@
+﻿@model UsuarioModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-default">
+    <div class="card-header">
+        <h2>Actualizar Contraseña</h2>
+    </div>
+
+    <div class="card-body">
+
+        <form asp-controller="Usuarios" asp-action="ActualizarContrasenna">
+            <div class="row">
+
+                <div class="alert alert-default text-center" role="alert">
+                    @ViewBag.Msj
+                </div>
+
+                <div class="col-2"></div>
+                <div class="col-8">
+
+                    <div class="form-group col-md-12 mb-4">
+                        Contraseña anterior
+                        <input type="password" class="form-control input-lg" asp-for="ContrasennaAnterior" placeholder="Contraseña anterior" required>
+                    </div>
+                    
+                    <div class="form-group col-md-12 mb-4">
+                        Contraseña nueva
+                        <input type="password" class="form-control input-lg" asp-for="Contrasenna" placeholder="Contraseña nueva" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary btn-pill mb-4">Procesar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+

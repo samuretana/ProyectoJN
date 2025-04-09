@@ -10,6 +10,7 @@ namespace JN_ProyectoWeb.Servicios
     {
         List<PuestosModel> ConsultarDatosPuestos(long Id);
         HttpResponseMessage ConsultarDatosOfertas(long Id);
+        HttpResponseMessage ConsultarDatosOfertasDisponibles();
 
         string Encrypt(string texto);
     }

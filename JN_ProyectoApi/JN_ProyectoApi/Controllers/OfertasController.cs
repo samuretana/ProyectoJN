@@ -168,5 +168,31 @@ namespace JN_ProyectoApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AplicarOferta")]
+        public IActionResult AplicarOferta (OfertasModel model)
+        {
+            var respuesta = new RespuestaModel();            
+
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
+            {
+                var IdUsuario = _general.ObtenerUsuarioFromToken(User.Claims);
+
+
+                var result = context.Execute("AplicarOferta", //Procedimiento Almacenado
+                    new { IdUsuario, model.IdOferta });
+
+                if (result > 0)
+                    respuesta.Indicador = true;
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "No se pudo realizar la postulación correctamente";
+                }
+
+                return Ok(respuesta);
+            }
+        }
+
     }
 }

@@ -76,7 +76,7 @@ namespace JN_ProyectoWeb.Controllers
 
             using (var http = _httpClient.CreateClient())
             {
-                string url = _configuration.GetSection("Variables:urlWebApi").Value + "Login/IniciarSesion";
+                var url = _configuration.GetSection("Variables:urlWebApi").Value + "Login/IniciarSesion";
                 var response = http.PostAsJsonAsync(url, model).Result;
 
                 if (response.IsSuccessStatusCode)

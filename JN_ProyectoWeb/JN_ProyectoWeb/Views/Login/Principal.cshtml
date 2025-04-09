@@ -20,7 +20,9 @@
             dataType:"json",
             success: function(events){
 
-                events.forEach(function (element, index){
+                if(events != null)
+                {
+                    events.forEach(function (element, index){
 
                     let date = new Date(element.fecha);
 
@@ -32,8 +34,10 @@
                       allDay: false,
                       backgroundColor: "gray",
                       url: ""
+                    });
                 });
-                });
+
+                }
 
                 InicializarCalendario(eventsArray);
             },

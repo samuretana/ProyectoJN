@@ -116,13 +116,13 @@ namespace JN_ProyectoApi.Controllers
             }
         }
 
-        private string GenerarToken(long Id, long IdPerfi)
+        private string GenerarToken(long Id, long IdPerfil)
         {
             string SecretKey = _configuration.GetSection("Variables:llaveToken").Value!;
 
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim("Id", Id.ToString()));
-            claims.Add(new Claim("IdPerfi", IdPerfi.ToString()));
+            claims.Add(new Claim("IdPerfil", IdPerfil.ToString()));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);

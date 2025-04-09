@@ -14,5 +14,16 @@ namespace JN_ProyectoApi.Servicios
             }
             return 0;
         }
+
+        public bool ValidarUsuarioReclutadorFromToken(IEnumerable<Claim> valores)
+        {
+            if (valores.Any())
+            {
+                var IdPerfil = valores.FirstOrDefault(x => x.Type == "IdPerfil")?.Value;
+
+                return (IdPerfil == "1");
+            }
+            return false;
+        }
     }
 }

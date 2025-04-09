@@ -27,25 +27,51 @@
                 <div class="app-brand">
                     <a href="@Url.Action("Principal", "Login")">
                         <img src="~/img/logo.png" alt="Mono">
-                        <span class="brand-name">MONO</span>
+                        <span class="brand-name">Ofertas JN</span>
                     </a>
                 </div>
 
                 <div class="sidebar-left" data-simplebar style="height: 100%;">
 
-                    <ul class="nav sidebar-inner" id="sidebar-menu">                        
-                        <li>
-                            <a class="sidenav-item-link" href="@Url.Action("ConsultarPuestos", "Puestos")">
-                                <i class="mdi mdi-wechat"></i>
-                                <span class="nav-text">Mant. Puestos</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="sidenav-item-link" href="@Url.Action("ConsultarOfertas", "Ofertas")">
-                                <i class="mdi mdi-phone"></i>
-                                <span class="nav-text">Mant. Ofertas</span>
-                            </a>
-                        </li>
+                    <ul class="nav sidebar-inner" id="sidebar-menu">
+
+                        @if (Context.Session.GetString("IdPerfil") != null && Context.Session.GetString("IdPerfil")!.ToString() == "1")
+                        {
+                            <li>
+                                <a class="sidenav-item-link" href="@Url.Action("ConsultarPuestos", "Puestos")">
+                                    <i class="mdi mdi-wechat"></i>
+                                    <span class="nav-text">Mant. Puestos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="sidenav-item-link" href="@Url.Action("ConsultarOfertas", "Ofertas")">
+                                    <i class="mdi mdi-phone"></i>
+                                    <span class="nav-text">Mant. Ofertas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="sidenav-item-link" href="@Url.Action("", "")">
+                                    <i class="mdi mdi-phone"></i>
+                                    <span class="nav-text">Seg.Ofertas</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="sidenav-item-link" href="@Url.Action("ConsultarOfertasDisponibles", "Ofertas")">
+                                    <i class="mdi mdi-phone"></i>
+                                    <span class="nav-text">Ofertas Disponbibles</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="sidenav-item-link" href="@Url.Action("", "")">
+                                    <i class="mdi mdi-phone"></i>
+                                    <span class="nav-text">Ofertas Aplicadas</span>
+                                </a>
+                            </li>
+
+                        }
                     </ul>
 
                 </div>
@@ -68,7 +94,7 @@
 
                     <div class="navbar-right ">
 
-                        
+
 
                         <ul class="nav navbar-nav">
 
@@ -106,7 +132,7 @@
             </header>
 
             @RenderBody()
-           
+
 
             <footer class="footer mt-auto">
                 <div class="copyright bg-white">

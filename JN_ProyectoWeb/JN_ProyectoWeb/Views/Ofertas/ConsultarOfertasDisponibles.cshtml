@@ -1,0 +1,106 @@
+﻿@model List<OfertasModel>
+
+<div class="card card-default">
+    <div class="card-header">
+        <h2>Ofertas Disponibles</h2>
+    </div>
+
+    <div class="card-body">
+
+        @if (@ViewBag.Msj != null)
+        {
+            <div class="alert alert-default text-center" role="alert">
+                @ViewBag.Msj
+            </div>
+        }
+
+        <table id="example" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Plazas</th>
+                    <th scope="col">Horario</th>
+                    <th scope="col">Salario</th>
+                    <th scope="col">Participaciones</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nombre</td>                        
+                        <td>@item.Cantidad</td>
+                        <td>@item.Horario</td>
+                        <td>@item.Salario</td>
+                        <td>@item.CantidadAplicaciones</td>
+                        <td>
+                            <button type="button" id="AbrirModal" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter"
+                                data-nombre="@item.Nombre"
+                                data-id="@item.Id"
+                                data-salario="@item.Salario"
+                                data-horario="@item.Horario"
+                                data-descripcion="@item.Descripcion">
+                                APLICAR
+                            </button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><label id="lblNombre"></label></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Salario: $</label> <label id="lblSalario"></label><br />
+                <label>Horario:</label> <label id="lblHorario"></label><br />
+
+                <textarea id="txtDescripcion" class="form-control" rows="10" readonly="readonly"
+                style="resize:none; background-color:transparent"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var table = new DataTable('#example', {
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.2.2/i18n/es-ES.json',
+            },
+            columnDefs: [{
+              targets: '_all', className: 'dt-left',
+              orderData: [5, 0]
+            }],
+        });
+    });
+
+    $(document).on("click","#AbrirModal", function(){
+
+        $("#lblNombre").text( $(this).attr("data-nombre") );
+        $("#lblSalario").text( $(this).attr("data-salario") );
+        $("#lblHorario").text( $(this).attr("data-horario") );
+        $("#txtDescripcion").val( $(this).attr("data-descripcion") );
+
+    })
+
+
+</script>

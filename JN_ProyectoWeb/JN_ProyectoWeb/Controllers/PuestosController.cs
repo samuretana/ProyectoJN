@@ -56,8 +56,24 @@ namespace JN_ProyectoWeb.Controllers
         [HttpGet]
         public IActionResult ActualizarPuestos(long Id)
         {
-            var datosResult = _general.ConsultarDatosPuestos(Id).FirstOrDefault();
-            return View(datosResult);
+            var response = _general.ConsultarDatosPuestos(Id);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = response.Content.ReadFromJsonAsync<RespuestaModel>().Result;
+
+                if (result != null && result.Indicador)
+                {
+                    var datosResult = JsonSerializer.Deserialize<List<PuestosModel>>((JsonElement)result.Datos!);
+                    return View(datosResult!.FirstOrDefault());
+                }
+                else
+                    ViewBag.Msj = result!.Mensaje;
+            }
+            else
+                ViewBag.Msj = "No se pudo completar su petición";
+
+            return View(new PuestosModel());
         }
 
         [HttpPost]

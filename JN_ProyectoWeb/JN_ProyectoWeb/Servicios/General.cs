@@ -19,25 +19,16 @@ namespace JN_ProyectoWeb.Servicios
             _contextAccessor = contextAccessor;
         }
 
-        public List<PuestosModel> ConsultarDatosPuestos(long Id)
+        public HttpResponseMessage ConsultarDatosPuestos(long Id)
         {
             using (var http = _httpClient.CreateClient())
             {
-                string url = _configuration.GetSection("Variables:urlWebApi").Value + "Puestos/ConsultarPuestos?Id=" + Id;
+                var url = _configuration.GetSection("Variables:urlWebApi").Value + "Puestos/ConsultarPuestos?Id=" + Id;
 
                 http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _contextAccessor.HttpContext!.Session.GetString("Token"));
                 var response = http.GetAsync(url).Result;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = response.Content.ReadFromJsonAsync<RespuestaModel>().Result;
-
-                    if (result != null && result.Indicador)
-                    {
-                        return JsonSerializer.Deserialize<List<PuestosModel>>((JsonElement)result!.Datos!)!;
-                    }
-                }
-                return new List<PuestosModel>();
+                return response;
             }
         }
 
@@ -66,6 +57,32 @@ namespace JN_ProyectoWeb.Servicios
 
                 return response;
 
+            }
+        }
+
+        public HttpResponseMessage ConsultarDatosOfertasAplicadas()
+        {
+            using (var http = _httpClient.CreateClient())
+            {
+                string url = _configuration.GetSection("Variables:urlWebApi").Value + "Ofertas/ConsultarUsuariosOfertas";
+
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _contextAccessor.HttpContext!.Session.GetString("Token"));
+                var response = http.GetAsync(url).Result;
+
+                return response;
+
+            }
+        }
+        public HttpResponseMessage ConsultarDatosEstados()
+        {
+            using (var http = _httpClient.CreateClient())
+            {
+                var url = _configuration.GetSection("Variables:urlWebApi").Value + "Ofertas/ConsultarEstados";
+
+                http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _contextAccessor.HttpContext!.Session.GetString("Token"));
+                var response = http.GetAsync(url).Result;
+
+                return response;
             }
         }
 

@@ -8,9 +8,11 @@ namespace JN_ProyectoWeb.Servicios
 {
     public interface IGeneral
     {
-        List<PuestosModel> ConsultarDatosPuestos(long Id);
+        HttpResponseMessage ConsultarDatosPuestos(long Id);
         HttpResponseMessage ConsultarDatosOfertas(long Id);
         HttpResponseMessage ConsultarDatosOfertasDisponibles();
+        HttpResponseMessage ConsultarDatosOfertasAplicadas();
+        HttpResponseMessage ConsultarDatosEstados();
 
         string Encrypt(string texto);
     }

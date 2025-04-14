@@ -120,10 +120,15 @@ namespace JN_ProyectoApi.Controllers
         [Route("ConsultarUsuariosOfertas")]
         public IActionResult ConsultarUsuariosOfertas()
         {
+            var IdUsuario = _general.ObtenerUsuarioFromToken(User.Claims);
+
+            if (_general.ValidarUsuarioReclutadorFromToken(User.Claims))
+                IdUsuario = -1;
+
             using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value))
             {
                 var result = context.Query<OfertasModel>("ConsultarUsuariosOfertas",
-                    new {  });
+                    new { IdUsuario });
 
                 var respuesta = new RespuestaModel();
 
@@ -168,6 +173,32 @@ namespace JN_ProyectoApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("ConsultarEstados")]
+        public IActionResult ConsultarEstados()
+        {
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value))
+            {
+                var result = context.Query<EstadosModel>("ConsultarEstados",
+                    new { });
+
+                var respuesta = new RespuestaModel();
+
+                if (result.Any())
+                {
+                    respuesta.Indicador = true;
+                    respuesta.Datos = result;
+                }
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "No hay información registrada";
+                }
+
+                return Ok(respuesta);
+            }
+        }
+
         [HttpPost]
         [Route("AplicarOferta")]
         public IActionResult AplicarOferta (OfertasModel model)
@@ -187,7 +218,7 @@ namespace JN_ProyectoApi.Controllers
                 else
                 {
                     respuesta.Indicador = false;
-                    respuesta.Mensaje = "No se pudo realizar la postulación correctamente";
+                    respuesta.Mensaje = "Ya se encuentra participando en la oferta #" + model.IdOferta;
                 }
 
                 return Ok(respuesta);

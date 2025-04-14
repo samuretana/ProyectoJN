@@ -40,7 +40,18 @@
                         <td>@item.Salario</td>
                         <td>@item.EstadoDescripcion</td>
                         <td>
-                            <select id="ddlEstados" class="form-control" asp-items="ViewBag.Estados"></select>
+
+                            @if (item.EstadoOferta == 1 || item.EstadoOferta == 2 || item.EstadoOferta == 5)
+                            {
+                            <form asp-action="ActualizarProcesoOferta" asp-controller="Ofertas">
+
+                                <input id="Id" name="Id" type="hidden" value="@item.Id">
+
+                                <select id="EstadoOferta" name="EstadoOferta" class="form-control" asp-items="ViewBag.Estados" onchange="this.form.submit();"></select>
+
+                            </form>
+                            }
+
                         </td>
                     </tr>
                 }

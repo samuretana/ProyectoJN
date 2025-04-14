@@ -225,5 +225,28 @@ namespace JN_ProyectoApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("ActualizarProcesoOferta")]
+        public IActionResult ActualizarProcesoOferta(OfertasModel model)
+        {
+            var respuesta = new RespuestaModel();
+
+            using (var context = new SqlConnection(_configuration.GetSection("ConnectionStrings:BDConnection").Value)) //Conexion a la BD
+            {
+                var result = context.Execute("ActualizarProcesoOferta", //Procedimiento Almacenado
+                    new { model.Id, model.EstadoOferta });
+
+                if (result > 0)
+                    respuesta.Indicador = true;
+                else
+                {
+                    respuesta.Indicador = false;
+                    respuesta.Mensaje = "No fue posible actualizaer el estado de la Aplicación #" + model.IdOferta;
+                }
+
+                return Ok(respuesta);
+            }
+        }
+
     }
 }
